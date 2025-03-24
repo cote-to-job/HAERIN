@@ -1,0 +1,57 @@
+class Solution {
+    public int solution(int m, int n, int[][] puddles) {
+        // m: 가로 칸 개수, n: 세로 칸 개수, puddles: 물이 잠김 지역
+        int mod = 1_000_000_007;
+        int[][] dp = new int[n][m];
+        boolean[][] isPuddle = new boolean[n][m];
+        
+        for (int[] puddle : puddles) {
+            isPuddle[puddle[1] - 1][puddle[0] - 1] = true;
+        }
+        
+        dp[0][0] = 1; 
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (isPuddle[i][j]) {
+                    dp[i][j] = 0; 
+                    continue;
+                }
+                if (i > 0) dp[i][j] = (dp[i][j] + dp[i - 1][j]) % mod; 
+                if (j > 0) dp[i][j] = (dp[i][j] + dp[i][j - 1]) % mod; 
+            }
+        }
+
+        return dp[n - 1][m - 1]; 
+        
+    }
+}
+
+
+
+
+# 파이썬
+def solution(m, n, puddles):
+    MOD = 1_000_000_007
+    dp = [[0] * m for _ in range(n)]  # DP 테이블 초기화
+    is_puddle = [[False] * m for _ in range(n)]  # 웅덩이 여부 저장
+
+    # 웅덩이 위치 변환 (좌표 (x,y) → 배열 (y-1, x-1))
+    for x, y in puddles:
+        is_puddle[y - 1][x - 1] = True
+
+    # 시작점 (집) 설정
+    dp[0][0] = 1  
+
+    # DP 테이블 채우기
+    for i in range(n):
+        for j in range(m):
+            if is_puddle[i][j]:  # 웅덩이일 경우 0으로 설정하고 건너뛰기
+                dp[i][j] = 0
+                continue
+            if i > 0:  # 위쪽에서 오는 경우
+                dp[i][j] = (dp[i][j] + dp[i - 1][j]) % MOD
+            if j > 0:  # 왼쪽에서 오는 경우
+                dp[i][j] = (dp[i][j] + dp[i][j - 1]) % MOD
+
+    return dp[n - 1][m - 1]  # 학교까지 가는 최단 경로 개수 반환

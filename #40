@@ -1,0 +1,27 @@
+// 자바
+class Solution {
+    public int solution(int[][] triangle) {
+        
+        int n = triangle.length;
+
+        for (int i = n - 2; i >= 0; i--) {  
+            for (int j = 0; j < triangle[i].length; j++) {  
+                triangle[i][j] += Math.max(triangle[i + 1][j], triangle[i + 1][j + 1]);
+            }
+        }
+        
+        return triangle[0][0];  
+        
+    }
+}
+
+
+# 파이썬
+def solution(triangle):
+    n = len(triangle)
+
+    for i in range(n - 2, -1, -1):  # 아래에서 위로 탐색
+        for j in range(len(triangle[i])):  # 현재 행의 요소 개수만큼 반복
+            triangle[i][j] += max(triangle[i + 1][j], triangle[i + 1][j + 1])
+
+    return triangle[0][0]
