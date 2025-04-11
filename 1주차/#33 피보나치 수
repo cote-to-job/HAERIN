@@ -1,6 +1,6 @@
 from collections import Counter
 
-def solution(participant, completion):
+def solution(participant, completion): 
     
     participant_counter = Counter(participant) # 참가자 목록을 해시맵으로 저장
     
