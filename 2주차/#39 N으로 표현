@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
-
 class Solution {
     public int solution(int N, int number) {
         
