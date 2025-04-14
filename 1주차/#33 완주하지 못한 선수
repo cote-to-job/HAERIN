@@ -1,19 +1,3 @@
-from collections import Counter
-
-def solution(participant, completion): 
-    
-    participant_counter = Counter(participant) # 참가자 목록을 해시맵으로 저장
-    
-    for c in completion:
-        participant_counter[c] -= 1 # 완중한 사람의 카운트 -1 
-    
-    for person, count in participant_counter.items(): # 남은 사람 출력
-        if count != 0:
-            return person
-
-
-
-
 import java.util.HashMap;
 import java.util.Map;
 
