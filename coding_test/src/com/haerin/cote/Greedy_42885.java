@@ -1,7 +1,7 @@
 package com.haerin.cote;
 
 import java.util.Arrays;
- 
+
 public class Greedy_42885 {
 
 	public int solution(int[] people, int limit) {
