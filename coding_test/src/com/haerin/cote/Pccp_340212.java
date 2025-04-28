@@ -4,24 +4,27 @@ public class Pccp_340212 {
 	
 	public int solution(int[] diffs, int[] times, long limit) {
 		
-	/* 시간초과
-		for (int level = 1; ; level++) {
-			if (solve(diffs, times, limit, level)) {
-				return level;
-			}
-		}
-	*/
+		/* 완전탐색 -> 시간초과 */
+//		for (int level = 1; ; level++) {
+//			if (solve(diffs, times, limit, level)) {
+//				return level;
+//			}
+//		}
 		
-		int left = 1;
-		int right = 1_000_000_000;
-		int answer = right;
+		/* 이분탐색 */
+		int left = 1; // 숙련도 최솟값 후보
+		int right = 1_000_000_000; // 숙련도 최대값 후보
+		int answer = right; // 정답을 담아둘 변수 (최솟값 갱신용)
 		
-		while (left <= right) {
-			int mid = (left + right) / 2;
+		// left와 right의 중간값 mid를 level로 설정해서 
+		// 퍼즐을 풀 수 있는지 검사
+		while (left <= right) { 
+			int mid = (left + right) / 2; 
 			
 			if (solve(diffs, times, limit, mid)) {
 				answer = mid;
 				right = mid - 1;
+				
 			} else {
 				left = mid + 1;
 			}
