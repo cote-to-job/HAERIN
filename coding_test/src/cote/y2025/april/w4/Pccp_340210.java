@@ -26,24 +26,34 @@ public class Pccp_340210 {
 	static List<String> incomplete;
 
 	public String[] solution(String[] expressions) {
+		
 		incomplete = new ArrayList<>();
+		
+		// 수식 분리 -> incomplete 리스트에 "= X"로 끝나는 식만 따로 저장
 		for (String expression : expressions) {
 			if (expression.charAt(expression.length() - 1) == 'X') {
 				incomplete.add(expression);
 			}
 		}
+		
+		// 유효한 진법 찾기 (2~9진법)
 		List<Integer> radixList = new ArrayList<>();
+		
 		for (int radix = 2; radix < 10; radix++) {
 			if (validate(radix, expressions)) {
 				radixList.add(radix);
 			}
 		}
+		
 		String[] answer = new String[incomplete.size()];
+		
 		for (int i = 0; i < incomplete.size(); i++) {
+			
 			String expression = incomplete.get(i);
 			String[] splits = expression.split("\\s*=\\s*");
 			Set<String> resultSet = new HashSet<>();
 			String result = "";
+			
 			for (int radix : radixList) {
 				try {
 					int value = calc(splits[0], radix);
@@ -53,17 +63,20 @@ public class Pccp_340210 {
 					continue;
 				}
 			}
+			
 			if (resultSet.size() == 1) {
 				answer[i] = splits[0] + " = " + result;
 			} else {
 				answer[i] = splits[0] + " = ?";
 			}
+			
 		}
 
 		return answer;
 	}
 
 	private boolean validate(int radix, String[] expressions) {
+		
 		for (String expression : expressions) {
 			try {
 				String[] splits = expression.split("\\s*=\\s*");
