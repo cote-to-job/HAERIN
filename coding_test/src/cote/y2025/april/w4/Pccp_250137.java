@@ -24,13 +24,13 @@ public class Pccp_250137 {
 		 * 만약 몬스터의 공격을 받고 캐릭터의 체력이 0 이하가 되어 죽는다면 -1 리턴.
 		 */
 		
-		int castTime = bandage[0];  // t초
-        int healPerSec = bandage[1]; // x
-        int bonusHeal = bandage[2]; // y
+		int castTime = bandage[0];  // 시전시간, t초
+        int healPerSec = bandage[1]; // 초당 회복량, x
+        int bonusHeal = bandage[2]; // 추가 회복량, y
 
-        int maxHealth = health;
-        int currentHealth = health;
-        int time = 0;
+        int maxHealth = health; // 최대 체력
+        int currentHealth = health; 
+        int time = 0; 
         int successTime = 0;
 
         int attackIdx = 0;
@@ -39,13 +39,16 @@ public class Pccp_250137 {
 		
         for (int t = 1; t <= lastAttackTime; t++) {
             if (attackIdx < attacks.length && attacks[attackIdx][0] == t) {
+            	
                 // 공격 받음
                 currentHealth -= attacks[attackIdx][1];
                 if (currentHealth <= 0) return -1;
 
                 successTime = 0; // 기술 실패
                 attackIdx++;
+                
             } else {
+            	
                 // 회복
                 currentHealth += healPerSec;
                 successTime++;
